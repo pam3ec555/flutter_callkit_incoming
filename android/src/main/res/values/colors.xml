@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="accept">#4CAF50</color>
+    <color name="primary_color">#34C782</color>
     <color name="accept_ripple">#A6FFA9</color>
     <color name="decline">#F44336</color>
     <color name="decline_ripple">#FB8D85</color>
+    <color name="action_button">#87868B</color>
 
-    <color name="action_text">#FFFFFF</color>
-    <color name="ripple_main_color">#80ffffff</color>
+    <color name="action_text">#000000</color>
+    <color name="ripple_main_color">#80CDCDCD</color>
+
+    <color name="scaffold_background_color">#ffffff</color>
 </resources>

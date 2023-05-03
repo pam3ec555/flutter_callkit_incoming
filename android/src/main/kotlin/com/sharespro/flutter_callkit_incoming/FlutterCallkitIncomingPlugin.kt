@@ -1,4 +1,4 @@
-package com.hiennv.flutter_callkit_incoming
+package com.sharespro.flutter_callkit_incoming
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -7,9 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.ACTION_CALL_CUSTOM
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
@@ -17,11 +16,13 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 
-/** FlutterCallkitIncomingPlugin */
 class FlutterCallkitIncomingPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     companion object {
+        const val METHOD_CHANNEL_NAME = "com.sharespro.flutter_callkit_incoming"
+
+        const val EVENT_CHANNEL_NAME = "com.sharespro.flutter_callkit_incoming.event"
+
         @SuppressLint("StaticFieldLeak")
         private var instance: FlutterCallkitIncomingPlugin? = null
 
@@ -59,9 +60,9 @@ class FlutterCallkitIncomingPlugin : FlutterPlugin, MethodCallHandler, ActivityA
             }
             instance!!.context = context
             instance!!.callkitNotificationManager = CallkitNotificationManager(context)
-            instance!!.channel = MethodChannel(binaryMessenger, "flutter_callkit_incoming")
+            instance!!.channel = MethodChannel(binaryMessenger, METHOD_CHANNEL_NAME)
             instance!!.channel?.setMethodCallHandler(handler ?: instance!!)
-            instance!!.events = EventChannel(binaryMessenger, "flutter_callkit_incoming_events")
+            instance!!.events = EventChannel(binaryMessenger, EVENT_CHANNEL_NAME)
             instance!!.events?.setStreamHandler(eventHandler)
         }
     }
@@ -79,66 +80,15 @@ class FlutterCallkitIncomingPlugin : FlutterPlugin, MethodCallHandler, ActivityA
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         this.context = flutterPluginBinding.applicationContext
         callkitNotificationManager = CallkitNotificationManager(flutterPluginBinding.applicationContext)
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_callkit_incoming")
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, METHOD_CHANNEL_NAME)
         channel?.setMethodCallHandler(this)
         events =
-            EventChannel(flutterPluginBinding.binaryMessenger, "flutter_callkit_incoming_events")
+            EventChannel(flutterPluginBinding.binaryMessenger, EVENT_CHANNEL_NAME)
         events?.setStreamHandler(eventHandler)
         sharePluginWithRegister(flutterPluginBinding, this)
     }
 
-    public fun showIncomingNotification(data: Data) {
-        data.from = "notification"
-        callkitNotificationManager?.showIncomingNotification(data.toBundle())
-        //send BroadcastReceiver
-        context?.sendBroadcast(
-            CallkitIncomingBroadcastReceiver.getIntentIncoming(
-                requireNotNull(context),
-                data.toBundle()
-            )
-        )
-    }
-
-    public fun showMissCallNotification(data: Data) {
-        callkitNotificationManager?.showIncomingNotification(data.toBundle())
-    }
-
-    public fun startCall(data: Data) {
-        context?.sendBroadcast(
-            CallkitIncomingBroadcastReceiver.getIntentStart(
-                requireNotNull(context),
-                data.toBundle()
-            )
-        )
-    }
-
-    public fun endCall(data: Data) {
-        context?.sendBroadcast(
-            CallkitIncomingBroadcastReceiver.getIntentEnded(
-                requireNotNull(context),
-                data.toBundle()
-            )
-        )
-    }
-
-    public fun endAllCalls() {
-        val calls = getDataActiveCalls(context)
-        calls.forEach {
-            context?.sendBroadcast(
-                CallkitIncomingBroadcastReceiver.getIntentEnded(
-                    requireNotNull(context),
-                    it.toBundle()
-                )
-            )
-        }
-        removeAllCalls(context)
-    }
-
-    public fun sendEventCustom(body: Map<String, Any>) {
-        eventHandler.send(ACTION_CALL_CUSTOM, body)
-    }
-
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: MethodChannel.Result) {
         try {
             when (call.method) {
                 "showCallkitIncoming" -> {

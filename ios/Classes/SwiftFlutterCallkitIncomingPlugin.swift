@@ -6,21 +6,24 @@ import AVFoundation
 @available(iOS 10.0, *)
 public class SwiftFlutterCallkitIncomingPlugin: NSObject, FlutterPlugin, CXProviderDelegate {
     
-    static let ACTION_DID_UPDATE_DEVICE_PUSH_TOKEN_VOIP = "com.hiennv.flutter_callkit_incoming.DID_UPDATE_DEVICE_PUSH_TOKEN_VOIP"
+    static let ACTION_DID_UPDATE_DEVICE_PUSH_TOKEN_VOIP = "com.sharespro.flutter_callkit_incoming.DID_UPDATE_DEVICE_PUSH_TOKEN_VOIP"
     
-    static let ACTION_CALL_INCOMING = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_INCOMING"
-    static let ACTION_CALL_START = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_START"
-    static let ACTION_CALL_ACCEPT = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_ACCEPT"
-    static let ACTION_CALL_DECLINE = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_DECLINE"
-    static let ACTION_CALL_ENDED = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_ENDED"
-    static let ACTION_CALL_TIMEOUT = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_TIMEOUT"
-    static let ACTION_CALL_CUSTOM = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_CUSTOM"
+    static let ACTION_CALL_INCOMING = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_INCOMING"
+    static let ACTION_CALL_START = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_START"
+    static let ACTION_CALL_ACCEPT = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_ACCEPT"
+    static let ACTION_CALL_DECLINE = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_DECLINE"
+    static let ACTION_CALL_ENDED = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_ENDED"
+    static let ACTION_CALL_TIMEOUT = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_TIMEOUT"
+    static let ACTION_CALL_CUSTOM = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_CUSTOM"
     
-    static let ACTION_CALL_TOGGLE_HOLD = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_HOLD"
-    static let ACTION_CALL_TOGGLE_MUTE = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_MUTE"
-    static let ACTION_CALL_TOGGLE_DMTF = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_DMTF"
-    static let ACTION_CALL_TOGGLE_GROUP = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_GROUP"
-    static let ACTION_CALL_TOGGLE_AUDIO_SESSION = "com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_AUDIO_SESSION"
+    static let ACTION_CALL_TOGGLE_HOLD = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_HOLD"
+    static let ACTION_CALL_TOGGLE_MUTE = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_MUTE"
+    static let ACTION_CALL_TOGGLE_DMTF = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_DMTF"
+    static let ACTION_CALL_TOGGLE_GROUP = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_GROUP"
+    static let ACTION_CALL_TOGGLE_AUDIO_SESSION = "com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_AUDIO_SESSION"
+
+    static let FLUTTER_METHOD_CHANNEL = "com.sharespro.flutter_callkit_incoming"
+    static let FLUTTER_EVENT_CHANNEL = "com.sharespro.flutter_callkit_incoming.event"
     
     @objc public static var sharedInstance: SwiftFlutterCallkitIncomingPlugin? = nil
     
@@ -50,8 +53,8 @@ public class SwiftFlutterCallkitIncomingPlugin: NSObject, FlutterPlugin, CXProvi
         if(sharedInstance == nil){
             sharedInstance = SwiftFlutterCallkitIncomingPlugin()
         }
-        sharedInstance!.channel = FlutterMethodChannel(name: "flutter_callkit_incoming", binaryMessenger: registrar.messenger())
-        sharedInstance!.eventChannel = FlutterEventChannel(name: "flutter_callkit_incoming_events", binaryMessenger: registrar.messenger())
+        sharedInstance!.channel = FlutterMethodChannel(name: FLUTTER_METHOD_CHANNEL, binaryMessenger: registrar.messenger())
+        sharedInstance!.eventChannel = FlutterEventChannel(name: FLUTTER_EVENT_CHANNEL, binaryMessenger: registrar.messenger())
         sharedInstance!.callManager = CallManager()
         sharedInstance!.eventCallbackHandler = EventCallbackHandler()
         sharedInstance!.eventChannel?.setStreamHandler(sharedInstance!.eventCallbackHandler as? FlutterStreamHandler & NSObjectProtocol)

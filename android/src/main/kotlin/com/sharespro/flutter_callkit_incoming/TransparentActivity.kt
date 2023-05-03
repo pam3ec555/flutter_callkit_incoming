@@ -1,11 +1,10 @@
-package com.hiennv.flutter_callkit_incoming
+package com.sharespro.flutter_callkit_incoming
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import java.util.*
 
 class TransparentActivity : Activity() {

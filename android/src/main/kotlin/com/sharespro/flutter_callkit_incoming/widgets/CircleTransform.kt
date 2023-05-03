@@ -1,10 +1,8 @@
-package com.hiennv.flutter_callkit_incoming.widgets
+package com.sharespro.flutter_callkit_incoming.widgets
 
 import android.graphics.*
 import com.squareup.picasso.Transformation
 import kotlin.math.min
-
-
 class CircleTransform : Transformation {
     override fun transform(source: Bitmap): Bitmap {
         val size = min(source.width, source.height)

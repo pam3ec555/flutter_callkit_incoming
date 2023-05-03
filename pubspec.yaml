@@ -35,7 +35,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.hiennv.flutter_callkit_incoming
+        package: com.sharespro.flutter_callkit_incoming
         pluginClass: FlutterCallkitIncomingPlugin
       ios:
         pluginClass: FlutterCallkitIncomingPlugin

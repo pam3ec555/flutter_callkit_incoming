@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/scaffold_background_color"
+    tools:context="com.sharespro.flutter_callkit_incoming.AcceptCallFullScreenFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="60dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/callerAvatar"
+            android:layout_width="@dimen/size_avatar"
+            android:layout_height="@dimen/size_avatar"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_default_avatar"
+            app:civ_border_color="#80ffffff"
+            app:civ_border_width="1dp" />
+
+        <TextView
+            android:id="@+id/callerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="@dimen/size_text_name"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/action_text"
+            android:textSize="@dimen/size_text_name"
+            app:autoSizeMaxTextSize="@dimen/size_text_name"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
+            tools:ignore="MissingPrefix"
+            tools:targetApi="o"
+            tools:text="Caller Name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="84dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/speakerButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="20dp"
+                android:adjustViewBounds="false"
+                android:background="@drawable/bg_button_action"
+                android:contentDescription="@string/text_speaker"
+                android:cropToPadding="false"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_speaker" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/speakerButtonLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/text_speaker"
+                android:textColor="@color/action_text"
+                android:textSize="@dimen/size_text_action" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="84dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/muteButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="18dp"
+                android:background="@drawable/bg_button_action"
+                android:contentDescription="@string/text_mute"
+                android:scaleType="fitXY"
+                android:src="@android:drawable/stat_notify_call_mute" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/muteLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/text_mute"
+                android:textColor="@color/action_text"
+                android:textSize="@dimen/size_text_action" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="84dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/hangUpButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_button_hang_up"
+                android:contentDescription="@string/text_hang_up"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_decline" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/hangUpLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/text_hang_up"
+                android:textColor="@color/action_text"
+                android:textSize="@dimen/size_text_action" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

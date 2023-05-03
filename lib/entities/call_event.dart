@@ -30,33 +30,33 @@ extension EventX on Event {
   String get name {
     switch (this) {
       case Event.ACTION_DID_UPDATE_DEVICE_PUSH_TOKEN_VOIP:
-        return 'com.hiennv.flutter_callkit_incoming.DID_UPDATE_DEVICE_PUSH_TOKEN_VOIP';
+        return 'com.sharespro.flutter_callkit_incoming.DID_UPDATE_DEVICE_PUSH_TOKEN_VOIP';
       case Event.ACTION_CALL_INCOMING:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_INCOMING';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_INCOMING';
       case Event.ACTION_CALL_START:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_START';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_START';
       case Event.ACTION_CALL_ACCEPT:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_ACCEPT';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_ACCEPT';
       case Event.ACTION_CALL_DECLINE:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_DECLINE';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_DECLINE';
       case Event.ACTION_CALL_ENDED:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_ENDED';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_ENDED';
       case Event.ACTION_CALL_TIMEOUT:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_TIMEOUT';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_TIMEOUT';
       case Event.ACTION_CALL_CALLBACK:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_CALLBACK';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_CALLBACK';
       case Event.ACTION_CALL_TOGGLE_HOLD:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_HOLD';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_HOLD';
       case Event.ACTION_CALL_TOGGLE_MUTE:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_MUTE';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_MUTE';
       case Event.ACTION_CALL_TOGGLE_DMTF:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_DMTF';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_DMTF';
       case Event.ACTION_CALL_TOGGLE_GROUP:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_GROUP';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_GROUP';
       case Event.ACTION_CALL_TOGGLE_AUDIO_SESSION:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_TOGGLE_AUDIO_SESSION';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_TOGGLE_AUDIO_SESSION';
       case Event.ACTION_CALL_CUSTOM:
-        return 'com.hiennv.flutter_callkit_incoming.ACTION_CALL_CUSTOM';
+        return 'com.sharespro.flutter_callkit_incoming.ACTION_CALL_CUSTOM';
     }
   }
 }

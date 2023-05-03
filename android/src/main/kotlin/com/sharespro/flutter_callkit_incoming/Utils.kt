@@ -1,8 +1,11 @@
-package com.hiennv.flutter_callkit_incoming
+package com.sharespro.flutter_callkit_incoming
 
+import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.os.Build
+import android.os.PowerManager
 import com.google.gson.Gson
 
 class Utils {
@@ -63,6 +66,17 @@ class Utils {
 
             intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
+        }
+
+        fun isDeviceLocked(context: Context): Boolean {
+            val isLocked = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                val keyguardManager: KeyguardManager = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+                keyguardManager.isDeviceLocked
+            } else {
+                val powerManager: PowerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager;
+                !powerManager.isInteractive
+            }
+            return isLocked
         }
 
     }

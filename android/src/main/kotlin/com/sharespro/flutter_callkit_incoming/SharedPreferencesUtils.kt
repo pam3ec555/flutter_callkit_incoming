@@ -1,7 +1,8 @@
-package com.hiennv.flutter_callkit_incoming
+package com.sharespro.flutter_callkit_incoming
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Bundle
 import com.google.gson.reflect.TypeToken
 
 
@@ -26,6 +27,42 @@ fun addCall(context: Context?, data: Data, isAccepted: Boolean = false) {
         arrayData.add(data)
     }
     putString(context, "ACTIVE_CALLS", Utils.getGsonInstance().toJson(arrayData))
+}
+
+fun sendEventFlutter(event: String, data: Bundle) {
+    val android = mapOf(
+        "isCustomNotification" to data.getBoolean(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_IS_CUSTOM_NOTIFICATION, false),
+        "isCustomSmallExNotification" to data.getBoolean(
+            CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_IS_CUSTOM_SMALL_EX_NOTIFICATION,
+            false
+        ),
+        "ringtonePath" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_RINGTONE_PATH, ""),
+        "backgroundUrl" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_BACKGROUND_URL, ""),
+        "actionColor" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_ACTION_COLOR, ""),
+        "incomingCallNotificationChannelName" to data.getString(
+            CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_INCOMING_CALL_NOTIFICATION_CHANNEL_NAME,
+            ""
+        ),
+        "missedCallNotificationChannelName" to data.getString(
+            CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_MISSED_CALL_NOTIFICATION_CHANNEL_NAME,
+            ""
+        ),
+    )
+    val forwardData = mapOf(
+        "id" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_ID, ""),
+        "nameCaller" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_NAME_CALLER, ""),
+        "avatar" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_AVATAR, ""),
+        "number" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_HANDLE, ""),
+        "type" to data.getInt(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_TYPE, 0),
+        "duration" to data.getLong(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_DURATION, 0L),
+        "textAccept" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_TEXT_ACCEPT, ""),
+        "textDecline" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_TEXT_DECLINE, ""),
+        "textMissedCall" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_TEXT_MISSED_CALL, ""),
+        "textCallback" to data.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_TEXT_CALLBACK, ""),
+        "extra" to data.getSerializable(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_EXTRA) as HashMap<String, Any?>,
+        "android" to android
+    )
+    FlutterCallkitIncomingPlugin.sendEvent(event, forwardData)
 }
 
 fun removeCall(context: Context?, data: Data) {

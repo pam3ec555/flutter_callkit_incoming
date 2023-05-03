@@ -1,5 +1,20 @@
-package com.hiennv.flutter_callkit_incoming
+package com.sharespro.flutter_callkit_incoming
 
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_ACTION_COLOR
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_AVATAR
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_DURATION
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_HANDLE
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_ID
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_INCOMING_CALL_NOTIFICATION_CHANNEL_NAME
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_IS_CUSTOM_NOTIFICATION
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_IS_CUSTOM_SMALL_EX_NOTIFICATION
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_MISSED_CALL_NOTIFICATION_CHANNEL_NAME
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_NAME_CALLER
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_ACCEPT
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_CALLBACK
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_DECLINE
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_MISSED_CALL
+import com.sharespro.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TYPE
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -20,22 +35,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_ACTION_COLOR
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_AVATAR
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_DURATION
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_HANDLE
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_ID
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_INCOMING_CALL_NOTIFICATION_CHANNEL_NAME
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_IS_CUSTOM_NOTIFICATION
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_IS_CUSTOM_SMALL_EX_NOTIFICATION
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_MISSED_CALL_NOTIFICATION_CHANNEL_NAME
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_NAME_CALLER
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_ACCEPT
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_CALLBACK
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_DECLINE
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TEXT_MISSED_CALL
-import com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver.Companion.EXTRA_CALLKIT_TYPE
-import com.hiennv.flutter_callkit_incoming.widgets.CircleTransform
+import com.sharespro.flutter_callkit_incoming.widgets.CircleTransform
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
@@ -100,10 +100,8 @@ class CallkitNotificationManager(private val context: Context) {
         notificationBuilder.setAutoCancel(false)
         notificationBuilder.setChannelId(NOTIFICATION_CHANNEL_ID_INCOMING)
         notificationBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setCategory(NotificationCompat.CATEGORY_CALL)
-            notificationBuilder.priority = NotificationCompat.PRIORITY_MAX
-        }
+        notificationBuilder.setCategory(NotificationCompat.CATEGORY_CALL)
+        notificationBuilder.priority = NotificationCompat.PRIORITY_MAX
         notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         notificationBuilder.setOngoing(true)
         notificationBuilder.setWhen(0)
@@ -128,7 +126,7 @@ class CallkitNotificationManager(private val context: Context) {
         val actionColor = data.getString(EXTRA_CALLKIT_ACTION_COLOR, "#4CAF50")
         try {
             notificationBuilder.color = Color.parseColor(actionColor)
-        } catch (error: Exception) {
+        } catch (_: Exception) {
         }
         notificationBuilder.setChannelId(NOTIFICATION_CHANNEL_ID_INCOMING)
         notificationBuilder.priority = NotificationCompat.PRIORITY_MAX
@@ -242,10 +240,8 @@ class CallkitNotificationManager(private val context: Context) {
         }
         notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID_MISSED)
         notificationBuilder.setChannelId(NOTIFICATION_CHANNEL_ID_MISSED)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                notificationBuilder.setCategory(Notification.CATEGORY_MISSED_CALL)
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            notificationBuilder.setCategory(Notification.CATEGORY_MISSED_CALL)
         }
         val textMissedCall = data.getString(EXTRA_CALLKIT_TEXT_MISSED_CALL, "")
         notificationBuilder.setSubText(if (TextUtils.isEmpty(textMissedCall)) context.getString(R.string.text_missed_call) else textMissedCall)
@@ -314,7 +310,7 @@ class CallkitNotificationManager(private val context: Context) {
         val actionColor = data.getString(EXTRA_CALLKIT_ACTION_COLOR, "#4CAF50")
         try {
             notificationBuilder.color = Color.parseColor(actionColor)
-        } catch (error: Exception) {
+        } catch (_: Exception) {
         }
 
         val notification = notificationBuilder.build()
@@ -322,14 +318,14 @@ class CallkitNotificationManager(private val context: Context) {
         Handler(Looper.getMainLooper()).postDelayed({
             try {
                 getNotificationManager().notify(notificationId, notification)
-            } catch (error: Exception) {
+            } catch (_: Exception) {
             }
         }, 1000)
     }
 
 
     fun clearIncomingNotification(data: Bundle) {
-        context.sendBroadcast(CallkitIncomingActivity.getIntentEnded(context))
+        context.sendBroadcast(CallkitActivity.getIntentEnded(context))
         notificationId = data.getString(EXTRA_CALLKIT_ID, "callkit_incoming").hashCode()
         getNotificationManager().cancel(notificationId)
     }
@@ -340,7 +336,7 @@ class CallkitNotificationManager(private val context: Context) {
         Handler(Looper.getMainLooper()).postDelayed({
             try {
                 getNotificationManager().cancel(notificationId)
-            } catch (error: Exception) {
+            } catch (_: Exception) {
             }
         }, 1000)
     }
@@ -466,7 +462,7 @@ class CallkitNotificationManager(private val context: Context) {
     }
 
     private fun getActivityPendingIntent(id: Int, data: Bundle): PendingIntent {
-        val intent = CallkitIncomingActivity.getIntent(context, data)
+        val intent = CallkitActivity.getIntent(context, data)
         return PendingIntent.getActivity(context, id, intent, getFlagPendingIntent())
     }
 

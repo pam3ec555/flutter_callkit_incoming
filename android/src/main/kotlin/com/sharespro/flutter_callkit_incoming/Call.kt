@@ -1,4 +1,4 @@
-package com.hiennv.flutter_callkit_incoming
+package com.sharespro.flutter_callkit_incoming
 
 import android.os.Bundle
 
@@ -111,10 +111,6 @@ data class Data(val args: Map<String, Any?>) {
         )
         bundle.putString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_RINGTONE_PATH, ringtonePath)
         bundle.putString(
-                CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_BACKGROUND_COLOR,
-                backgroundColor
-        )
-        bundle.putString(
                 CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_BACKGROUND_URL,
                 backgroundUrl
         )
@@ -183,10 +179,6 @@ data class Data(val args: Map<String, Any?>) {
             data.ringtonePath = bundle.getString(
                     CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_RINGTONE_PATH,
                     ""
-            )
-            data.backgroundColor = bundle.getString(
-                    CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_BACKGROUND_COLOR,
-                    "#0955fa"
             )
             data.backgroundUrl =
                     bundle.getString(CallkitIncomingBroadcastReceiver.EXTRA_CALLKIT_BACKGROUND_URL, "")
